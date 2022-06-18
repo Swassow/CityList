@@ -76,4 +76,22 @@ public class MainActivityTest {
         Espresso.pressBack(); //Back button
     }
 
+    @Test
+    public void uiTest()
+    {
+        onView(withId(R.id.button_add)).perform(click()); //Click add button to add a city to the list
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Edmonton")); //Type a city name
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.button_confirm)).perform(click()); //Confirm the city name and add to the list
+
+        onData(anything()).inAdapterView(withId(R.id.city_list)).atPosition(0).perform(click()); //Check the content on the list - no content in this case
+        //Espresso.pressBack(); //Back button
+        onView(withId(R.id.showactivity)).check(matches(isDisplayed()));
+
+        onView(withText("Edmonton")).check(matches(isDisplayed()));
+
+        onView(withId(R.id.button)).perform(click());
+        onView(withId(R.id.main)).check(matches(isDisplayed()));
+    }
+
 }
